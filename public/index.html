@@ -205,159 +205,157 @@
 
     <!-- СКРИПТ ДЛЯ ЗАГРУЗКИ ДАННЫХ -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const submissionsContainer = document.getElementById('submissions-container');
-        const apiUrl = 'https://webperekupserver.onrender.com/api/submissions';
-        const telegramBotToken = '8277125562:AAHd3QqkhPNR5gFY7kecrvud87sLTeCmF10';
+document.addEventListener('DOMContentLoaded', function() {
+    const submissionsContainer = document.getElementById('submissions-container');
+    const apiUrl = 'https://webperekupserver.onrender.com/api/submissions';
+    // ВАЖНО: Этот ключ должен совпадать с тем, что в .env файле вашего API-сервера
+    const WEB_API_KEY = '8277125562:AAHd3QqkhPNR5gFY7kecrvud87sLTeCmF10'; 
 
-        submissionsContainer.innerHTML = '<p class="col-12 text-center">Загрузка заявок...</p>';
+    submissionsContainer.innerHTML = '<p class="col-12 text-center">Загрузка заявок...</p>';
 
-        function fetchSubmissions() {
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Ошибка HTTP: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(result => {
-                    const submissions = result.data;
-                    submissionsContainer.innerHTML = '';
-
-                    if (submissions && submissions.length > 0) {
-                        submissions.forEach(submission => {
-                            if (!submission.id) {
-                                console.error('Заявка без ID:', submission);
-                                return;
-                            }
-
-                            const colDiv = document.createElement('div');
-                            colDiv.className = 'col-md-6 col-lg-4';
-                            
-                            const card = document.createElement('div');
-                            card.className = 'card card-primary card-outline';
-                            card.dataset.submissionId = submission.id;
-
-                            const cardHeader = document.createElement('div');
-                            cardHeader.className = 'card-header';
-                            cardHeader.innerHTML = `
-                                <h3 class="card-title">Заявка от: <strong>${submission.user_name}</strong></h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
-                                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
-                                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                                    </button>
-                                </div>
-                            `;
-                            card.appendChild(cardHeader);
-
-                            const cardBody = document.createElement('div');
-                            cardBody.className = 'card-body';
-                            
-                            let photoUrl;
-if (submission.file_path) {
-    // Проверяем, является ли file_path полной URL-ссылкой от Telegram
-    if (submission.file_path.startsWith('https://api.telegram.org/file/bot')) {
-        // Если да, извлекаем из нее только относительную часть пути
-        const parts = submission.file_path.split('/file/bot');
-        if (parts.length > 1) {
-            const pathWithToken = parts[1];
-            const pathParts = pathWithToken.split('/');
-            // Убираем токен из пути
-            pathParts.shift(); 
-            const relativePath = pathParts.join('/');
-            photoUrl = `https://webperekupserver.onrender.com/api/${relativePath}`;
-        } else {
-            photoUrl = 'https://via.placeholder.com/400x250.png?text=Ошибка+в+пути';
-        }
-    } else {
-        // Если это относительный путь (как и должно быть), используем его напрямую
-        photoUrl = `https://webperekupserver.onrender.com/api/${submission.file_path}`;
-    }
-} else {
-    photoUrl = 'https://via.placeholder.com/400x250.png?text=Нет+фото';
-}
-
-                            const img = document.createElement('img');
-                            img.src = photoUrl;
-                            img.alt = `Фото от ${submission.user_name}`;
-                            img.className = 'img-fluid mb-2 rounded';
-                            img.style.maxHeight = '250px';
-                            cardBody.appendChild(img);
-
-                            const postTextP = document.createElement('p');
-                            postTextP.innerHTML = `
-                                <strong>Сервер:</strong> ${submission.server}<br>
-                                <strong>Автомобиль:</strong> ${submission.car}<br>
-                                <strong>Цена:</strong> ${submission.price}
-                            `;
-                            cardBody.appendChild(postTextP);
-
-                            const actionButtonsDiv = document.createElement('div');
-                            actionButtonsDiv.className = 'd-flex gap-2';
-                            actionButtonsDiv.innerHTML = `
-                                <button class="btn btn-success btn-sm approve-btn">Одобрить</button>
-                                <button class="btn btn-danger btn-sm reject-btn">Отклонить</button>
-                            `;
-                            cardBody.appendChild(actionButtonsDiv);
-
-                            card.appendChild(cardBody);
-                            colDiv.appendChild(card);
-                            submissionsContainer.appendChild(colDiv);
-                        });
-                    } else {
-                        submissionsContainer.innerHTML = '<p class="col-12 text-center">Нет новых заявок.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Ошибка при загрузке заявок:', error);
-                    submissionsContainer.innerHTML = '<p class="col-12 text-center text-danger">Не удалось загрузить заявки.</p>';
-                });
-        }
-
-        submissionsContainer.addEventListener('click', function(event) {
-            const target = event.target;
-            const card = target.closest('.card');
-            if (!card) return;
-
-            const submissionId = card.dataset.submissionId;
-
-            if (target.classList.contains('approve-btn')) {
-                handleAction(submissionId, 'approve');
-            } else if (target.classList.contains('reject-btn')) {
-                handleAction(submissionId, 'reject');
-            }
-        });
-
-        async function handleAction(id, action) {
-            try {
-                const response = await fetch(`${apiUrl}/${id}/${action}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'Authorization': `Bearer ${WEB_API_KEY}` // Раскомментируйте, если нужно
-                    }
-                });
-
+    function fetchSubmissions() {
+        fetch(apiUrl)
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Ошибка: ${response.status}`);
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
                 }
+                return response.json();
+            })
+            .then(result => {
+                const submissions = result.data;
+                submissionsContainer.innerHTML = '';
 
-                const cardToRemove = document.querySelector(`[data-submission-id="${id}"]`);
-                if (cardToRemove) {
-                    cardToRemove.style.transition = 'opacity 0.5s';
-                    cardToRemove.style.opacity = '0';
-                    setTimeout(() => cardToRemove.remove(), 500);
+                if (submissions && submissions.length > 0) {
+                    submissions.forEach(submission => {
+                        if (!submission.id) {
+                            console.error('Заявка без ID:', submission);
+                            return;
+                        }
+
+                        const colDiv = document.createElement('div');
+                        colDiv.className = 'col-md-6 col-lg-4';
+                        
+                        const card = document.createElement('div');
+                        card.className = 'card card-primary card-outline';
+                        card.dataset.submissionId = submission.id;
+
+                        const cardHeader = document.createElement('div');
+                        cardHeader.className = 'card-header';
+                        cardHeader.innerHTML = `
+                            <h3 class="card-title">Заявка от: <strong>${submission.user_name}</strong></h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                                    <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                    <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                </button>
+                            </div>
+                        `;
+                        card.appendChild(cardHeader);
+
+                        const cardBody = document.createElement('div');
+                        cardBody.className = 'card-body';
+                        
+                        // --- НАЧАЛО ИЗМЕНЕННОГО БЛОКА ---
+                        let photoUrl = 'https://via.placeholder.com/400x250.png?text=Нет+фото';
+
+                        if (submission.file_path) {
+                            // Проверяем, является ли file_path полной URL-ссылкой от Telegram
+                            if (submission.file_path.startsWith('https://api.telegram.org')) {
+                                // Если да, извлекаем относительный путь, который идет после '/photos/'
+                                const photosIndex = submission.file_path.indexOf('/photos/');
+                                if (photosIndex !== -1) {
+                                    const relativePath = submission.file_path.substring(photosIndex); // Получаем "/photos/file_10.jpg"
+                                    photoUrl = `https://webperekupserver.onrender.com/api/photo${relativePath}`; // Собираем правильный URL
+                                } else {
+                                    photoUrl = 'https://via.placeholder.com/400x250.png?text=Ошибка+в+пути+1';
+                                }
+                            } else {
+                                // Если это уже относительный путь (как и должно быть), используем его напрямую
+                                photoUrl = `https://webperekupserver.onrender.com/api/photo/${submission.file_path}`;
+                            }
+                        }
+                        // --- КОНЕЦ ИЗМЕНЕННОГО БЛОКА ---
+
+                        const img = document.createElement('img');
+                        img.src = photoUrl;
+                        img.alt = `Фото от ${submission.user_name}`;
+                        img.className = 'img-fluid mb-2 rounded';
+                        img.style.maxHeight = '250px';
+                        cardBody.appendChild(img);
+
+                        const postTextP = document.createElement('p');
+                        postTextP.innerHTML = `
+                            <strong>Сервер:</strong> ${submission.server}<br>
+                            <strong>Автомобиль:</strong> ${submission.car}<br>
+                            <strong>Цена:</strong> ${submission.price}
+                        `;
+                        cardBody.appendChild(postTextP);
+
+                        const actionButtonsDiv = document.createElement('div');
+                        actionButtonsDiv.className = 'd-flex gap-2';
+                        actionButtonsDiv.innerHTML = `
+                            <button class="btn btn-success btn-sm approve-btn">Одобрить</button>
+                            <button class="btn btn-danger btn-sm reject-btn">Отклонить</button>
+                        `;
+                        cardBody.appendChild(actionButtonsDiv);
+
+                        card.appendChild(cardBody);
+                        colDiv.appendChild(card);
+                        submissionsContainer.appendChild(colDiv);
+                    });
+                } else {
+                    submissionsContainer.innerHTML = '<p class="col-12 text-center">Нет новых заявок.</p>';
                 }
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке заявок:', error);
+                submissionsContainer.innerHTML = '<p class="col-12 text-center text-danger">Не удалось загрузить заявки.</p>';
+            });
+    }
 
-            } catch (error) {
-                console.error(`Ошибка при выполнении действия "${action}":`, error);
-                alert(`Не удалось ${action === 'approve' ? 'одобрить' : 'отклонить'} заявку. Попробуйте еще раз.`);
-            }
+    submissionsContainer.addEventListener('click', function(event) {
+        const target = event.target;
+        const card = target.closest('.card');
+        if (!card) return;
+
+        const submissionId = card.dataset.submissionId;
+
+        if (target.classList.contains('approve-btn')) {
+            handleAction(submissionId, 'approve');
+        } else if (target.classList.contains('reject-btn')) {
+            handleAction(submissionId, 'reject');
         }
-
-        fetchSubmissions();
     });
-    </script>
+
+    async function handleAction(id, action) {
+        try {
+            const response = await fetch(`${apiUrl}/${id}/${action}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${WEB_API_KEY}` // Используем ключ для безопасности
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка: ${response.status}`);
+            }
+
+            const cardToRemove = document.querySelector(`[data-submission-id="${id}"]`);
+            if (cardToRemove) {
+                cardToRemove.style.transition = 'opacity 0.5s';
+                cardToRemove.style.opacity = '0';
+                setTimeout(() => cardToRemove.remove(), 500);
+            }
+
+        } catch (error) {
+            console.error(`Ошибка при выполнении действия "${action}":`, error);
+            alert(`Не удалось ${action === 'approve' ? 'одобрить' : 'отклонить'} заявку. Попробуйте еще раз.`);
+        }
+    }
+
+    fetchSubmissions();
+});
+</script>
 </body>
 </html>
