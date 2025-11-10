@@ -266,13 +266,13 @@ if (submission.file_path) {
             // Убираем токен из пути
             pathParts.shift(); 
             const relativePath = pathParts.join('/');
-            photoUrl = `https://webperekupserver.onrender.com/api/photo/${relativePath}`;
+            photoUrl = `https://webperekupserver.onrender.com/api/${relativePath}`;
         } else {
             photoUrl = 'https://via.placeholder.com/400x250.png?text=Ошибка+в+пути';
         }
     } else {
         // Если это относительный путь (как и должно быть), используем его напрямую
-        photoUrl = `https://webperekupserver.onrender.com/api/photo/${submission.file_path}`;
+        photoUrl = `https://webperekupserver.onrender.com/api/${submission.file_path}`;
     }
 } else {
     photoUrl = 'https://via.placeholder.com/400x250.png?text=Нет+фото';
