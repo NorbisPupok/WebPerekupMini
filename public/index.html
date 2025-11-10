@@ -258,26 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         // --- НАЧАЛО ИЗМЕНЕННОГО БЛОКА ---
                         let photoUrl = 'https://via.placeholder.com/400x250.png?text=Нет+фото';
 
-                        if (submission.file_path) {
-                            // Проверяем, является ли file_path полной URL-ссылкой от Telegram
-                            if (submission.file_path.startsWith('https://api.telegram.org')) {
-                                // Если да, извлекаем относительный путь, который идет после '/photos/'
-                                const photosIndex = submission.file_path.indexOf('/photos/');
-                                if (photosIndex !== -1) {
-                                    const relativePath = submission.file_path.substring(photosIndex); // Получаем "/photos/file_10.jpg"
-                                    photoUrl = `https://webperekupserver.onrender.com/api/photo${relativePath}`; // Собираем правильный URL
-                                } else {
-                                    photoUrl = 'https://via.placeholder.com/400x250.png?text=Ошибка+в+пути+1';
-                                }
-                            } else {
-                                // Если это уже относительный путь (как и должно быть), используем его напрямую
-                                photoUrl = `https://webperekupserver.onrender.com/api/photo/${submission.file_path}`;
-                            }
-                        }
-                        // --- КОНЕЦ ИЗМЕНЕННОГО БЛОКА ---
+if (submission.photo_file_id) {
+    photoUrl = `https://webperekupserver.onrender.com/api/photo/${submission.photo_file_id}`;
+}
+// --- КОНЕЦ БЛОКА ---
 
-                        const img = document.createElement('img');
-                        img.src = photoUrl;
+const img = document.createElement('img');
+img.src = photoUrl;
                         img.alt = `Фото от ${submission.user_name}`;
                         img.className = 'img-fluid mb-2 rounded';
                         img.style.maxHeight = '250px';
