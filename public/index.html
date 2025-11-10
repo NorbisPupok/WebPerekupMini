@@ -255,8 +255,8 @@
                             cardBody.className = 'card-body';
                             
                             const photoUrl = submission.file_path 
-                                ? `https://api.telegram.org/file/bot${telegramBotToken}/${submission.file_path}` 
-                                : 'https://via.placeholder.com/400x250.png?text=Нет+фото';
+							? `https://webperekupserver.onrender.com/api/photo/${submission.file_path}` 
+							: 'https://via.placeholder.com/400x250.png?text=Нет+фото';
 
                             const img = document.createElement('img');
                             img.src = photoUrl;
