@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AdminLTE 4 | Заявки</title>
+
+    <!--begin::Accessibility Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <!--end::Accessibility Meta Tags-->
+
+    <!--begin::Primary Meta Tags-->
+    <meta name="title" content="AdminLTE 4 | Заявки" />
+    <meta name="author" content="ColorlibHQ" />
+    <meta name="description" content="Панель управления для сайта покупок." />
+    <!--end::Primary Meta Tags-->
+
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" media="print" onload="this.media='all'" />
+    <!--end::Fonts-->
+
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="/node_modules/overlayscrollbars/styles/overlayscrollbars.min.css" crossorigin="anonymous" />
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" crossorigin="anonymous" />
+    <!--end::Third Party Plugin(Bootstrap Icons)-->
+
+    <!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="/node_modules/admin-lte/dist/css/adminlte.min.css" />
+    <!--end::Required Plugin(AdminLTE)-->
+</head>
+<body class="app sidebar-mini layout-fixed sidebar-expand-lg bg-body-tertiary" data-lte="true">
+    <div class="app-wrapper">
+        <!-- Верхняя панель (Topbar) -->
+        <nav class="app-header navbar navbar-expand bg-body">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+                            <i class="bi bi-list"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
+                        <a href="#" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
+                        <a href="#" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                            <i class="bi bi-search"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-chat-text"></i>
+                            <span class="navbar-badge badge text-bg-danger">3</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <img src="/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3" />
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h3 class="dropdown-item-title">Brad Diesel <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span></h3>
+                                        <p class="fs-7">Call me whenever you can...</p>
+                                        <p class="fs-7 text-secondary"><i class="bi bi-clock-fill me-1"></i> 4 Hours Ago</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-bell-fill"></i>
+                            <span class="navbar-badge badge text-bg-warning">15</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <span class="dropdown-item dropdown-header">15 Notifications</span>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item"><i class="bi bi-envelope me-2"></i> 4 new messages <span class="float-end text-secondary fs-7">3 mins</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-lte-toggle="fullscreen">
+                            <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
+                            <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img src="/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image" />
+                            <span class="d-none d-md-inline">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <li class="user-header text-bg-primary">
+                                <img src="/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image" />
+                                <p>Alexander Pierce - Web Developer <small>Member since Nov. 2023</small></p>
+                            </li>
+                            <li class="user-footer">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Боковая панель (Sidenav) -->
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+            <div class="sidebar-brand">
+                <a href="/" class="brand-link">
+                    <img src="/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
+                    <span class="brand-text fw-light">AdminLTE 4</span>
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <nav class="mt-2">
+                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon bi bi-box-seam-fill"></i>
+                                <p>Работа с постами <i class="nav-arrow bi bi-chevron-right"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/" class="nav-link active">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Заявки</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>История</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Рассылка</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="app-main">
+            <div class="app-content-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="mb-0">Заявки</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-content">
+                <div class="container-fluid">
+                    <div id="submissions-container" class="row g-4 mb-4">
+                        <p class="col-12 text-center">Загрузка заявок...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Подвал (Footer) -->
+        <footer class="app-footer">
+            <strong>Copyright &copy; 2024.</strong> Все права защищены.
+        </footer>
+    </div>
+
+    <!-- Скрипты -->
+    <!-- jQuery -->
+    <script src="/node_modules/admin-lte/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- OverlayScrollbars -->
+    <script src="/node_modules/overlayscrollbars/browser/overlayscrollbars.browser.es6.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/node_modules/admin-lte/dist/js/adminlte.min.js"></script>
+
+    <!-- СКРИПТ ДЛЯ ЗАГРУЗКИ ДАННЫХ -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const submissionsContainer = document.getElementById('submissions-container');
+        const apiUrl = '/api/submissions';
+        const telegramBotToken = '8277125562:AAHd3QqkhPNR5gFY7kecrvud87sLTeCmF10';
+
+        submissionsContainer.innerHTML = '<p class="col-12 text-center">Загрузка заявок...</p>';
+
+        function fetchSubmissions() {
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Ошибка HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    const submissions = result.data;
+                    submissionsContainer.innerHTML = '';
+
+                    if (submissions && submissions.length > 0) {
+                        submissions.forEach(submission => {
+                            if (!submission.id) {
+                                console.error('Заявка без ID:', submission);
+                                return;
+                            }
+
+                            const colDiv = document.createElement('div');
+                            colDiv.className = 'col-md-6 col-lg-4';
+                            
+                            const card = document.createElement('div');
+                            card.className = 'card card-primary card-outline';
+                            card.dataset.submissionId = submission.id;
+
+                            const cardHeader = document.createElement('div');
+                            cardHeader.className = 'card-header';
+                            cardHeader.innerHTML = `
+                                <h3 class="card-title">Заявка от: <strong>${submission.user_name}</strong></h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                    </button>
+                                </div>
+                            `;
+                            card.appendChild(cardHeader);
+
+                            const cardBody = document.createElement('div');
+                            cardBody.className = 'card-body';
+                            
+                            const photoUrl = submission.file_path 
+                                ? `https://api.telegram.org/file/bot${telegramBotToken}/${submission.file_path}` 
+                                : 'https://via.placeholder.com/400x250.png?text=Нет+фото';
+
+                            const img = document.createElement('img');
+                            img.src = photoUrl;
+                            img.alt = `Фото от ${submission.user_name}`;
+                            img.className = 'img-fluid mb-2 rounded';
+                            img.style.maxHeight = '250px';
+                            cardBody.appendChild(img);
+
+                            const postTextP = document.createElement('p');
+                            postTextP.innerHTML = `
+                                <strong>Сервер:</strong> ${submission.server}<br>
+                                <strong>Автомобиль:</strong> ${submission.car}<br>
+                                <strong>Цена:</strong> ${submission.price}
+                            `;
+                            cardBody.appendChild(postTextP);
+
+                            const actionButtonsDiv = document.createElement('div');
+                            actionButtonsDiv.className = 'd-flex gap-2';
+                            actionButtonsDiv.innerHTML = `
+                                <button class="btn btn-success btn-sm approve-btn">Одобрить</button>
+                                <button class="btn btn-danger btn-sm reject-btn">Отклонить</button>
+                            `;
+                            cardBody.appendChild(actionButtonsDiv);
+
+                            card.appendChild(cardBody);
+                            colDiv.appendChild(card);
+                            submissionsContainer.appendChild(colDiv);
+                        });
+                    } else {
+                        submissionsContainer.innerHTML = '<p class="col-12 text-center">Нет новых заявок.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при загрузке заявок:', error);
+                    submissionsContainer.innerHTML = '<p class="col-12 text-center text-danger">Не удалось загрузить заявки.</p>';
+                });
+        }
+
+        submissionsContainer.addEventListener('click', function(event) {
+            const target = event.target;
+            const card = target.closest('.card');
+            if (!card) return;
+
+            const submissionId = card.dataset.submissionId;
+
+            if (target.classList.contains('approve-btn')) {
+                handleAction(submissionId, 'approve');
+            } else if (target.classList.contains('reject-btn')) {
+                handleAction(submissionId, 'reject');
+            }
+        });
+
+        async function handleAction(id, action) {
+            try {
+                const response = await fetch(`${apiUrl}/${id}/${action}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': `Bearer ${WEB_API_KEY}` // Раскомментируйте, если нужно
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка: ${response.status}`);
+                }
+
+                const cardToRemove = document.querySelector(`[data-submission-id="${id}"]`);
+                if (cardToRemove) {
+                    cardToRemove.style.transition = 'opacity 0.5s';
+                    cardToRemove.style.opacity = '0';
+                    setTimeout(() => cardToRemove.remove(), 500);
+                }
+
+            } catch (error) {
+                console.error(`Ошибка при выполнении действия "${action}":`, error);
+                alert(`Не удалось ${action === 'approve' ? 'одобрить' : 'отклонить'} заявку. Попробуйте еще раз.`);
+            }
+        }
+
+        fetchSubmissions();
+    });
+    </script>
+</body>
+</html>
